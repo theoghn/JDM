@@ -1,0 +1,14 @@
+C:\JDM\JDM\bin\Debug\JDM.exe.config
+C:\JDM\JDM\bin\Debug\JDM.exe
+C:\JDM\JDM\bin\Debug\JDM.pdb
+C:\JDM\JDM\obj\Debug\JDM.csproj.AssemblyReference.cache
+C:\JDM\JDM\obj\Debug\JDM.Create.resources
+C:\JDM\JDM\obj\Debug\JDM.Form1.resources
+C:\JDM\JDM\obj\Debug\JDM.Properties.Resources.resources
+C:\JDM\JDM\obj\Debug\JDM.csproj.GenerateResource.cache
+C:\JDM\JDM\obj\Debug\JDM.csproj.CoreCompileInputs.cache
+C:\JDM\JDM\obj\Debug\JDM.exe
+C:\JDM\JDM\obj\Debug\JDM.pdb
+C:\JDM\JDM\obj\Debug\JDM.View.resources
+C:\JDM\JDM\obj\Debug\JDM.CreateQuizz.resources
+C:\JDM\JDM\obj\Debug\JDM.Quizz.resources
