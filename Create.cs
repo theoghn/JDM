@@ -71,6 +71,7 @@ namespace JDM
         int i = 0;
         string[] categorii= {"","", "", "", "" };
         string[] s = { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
+        
         private void button4_Click(object sender, EventArgs e)
         {
             int b = 0;
@@ -82,7 +83,7 @@ namespace JDM
                     b = 1;
                 }
             }
-            if (b == 0)
+            if (b == 0 && textBox3.Text.Length > 0)
             {
                 int a = 0;
                 for (int i = 0; i < 5; i++)

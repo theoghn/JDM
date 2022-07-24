@@ -40,11 +40,24 @@ namespace JDM
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text.Length>0&& textBox2.Text.Length > 0 && textBox3.Text.Length > 0 && textBox4.Text.Length > 0 && textBox5.Text.Length > 0)
+            save();
+            
+            if (curent == 5)
+                button1.Visible = false;
+
+            if (edit == true)
+            {
+                update();
+            }
+
+        }
+        private void save()
+        {
+            if (textBox1.Text.Length > 0 && textBox2.Text.Length > 0 && textBox3.Text.Length > 0 && textBox4.Text.Length > 0 && textBox5.Text.Length > 0)
             {
                 SqlConnection con = new SqlConnection(connection);
                 con.Open();
-                SqlCommand delete = new SqlCommand("delete from quizz where id=@id and titlu=@titlu",con);
+                SqlCommand delete = new SqlCommand("delete from quizz where id=@id and titlu=@titlu", con);
                 delete.Parameters.AddWithValue("id", curent);
                 delete.Parameters.AddWithValue("titlu", titlu);
                 delete.ExecuteNonQuery();
@@ -68,15 +81,6 @@ namespace JDM
                 textBox5.Text = "";
 
             }
-            
-            if (curent == 5)
-                button1.Visible = false;
-
-            if (edit == true)
-            {
-                update();
-            }
-
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -143,6 +147,7 @@ namespace JDM
 
         private void button3_Click(object sender, EventArgs e)
         {
+            save();
             create.Show();
             this.Close();
         }
