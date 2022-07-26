@@ -164,5 +164,11 @@ namespace JDM
             textBox5.BackColor = ColorTranslator.FromHtml("#202531");
             this.BackColor = ColorTranslator.FromHtml("#1C1C25");
         }
+
+        private void CreateQuizz_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            
+            
+        }
     }
 }

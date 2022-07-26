@@ -19,8 +19,10 @@ namespace JDM
     {
         string nume;
         bool edit_mode;
-        public Create(string input, bool edit)
+        Form1 form;
+        public Create(string input, bool edit,Form1 forms)
         {
+            form = forms;
             InitializeComponent();
             edit_mode = edit;
             textBox5.Text = input;
@@ -115,13 +117,15 @@ namespace JDM
         {
             comboBox1.Items.Clear();
             int a = 1;
+            int n=-1;
             for (int i = 0; i < 5; i++)
             {
                 if (categorii[i].Length != 0)
                 {
+                    n++;
                     a = 0;
                     comboBox1.Items.Add(categorii[i]);
-                    comboBox1.SelectedIndex = i;
+                    comboBox1.SelectedIndex = n;
                 }
             }
             if (a == 1)
@@ -226,17 +230,17 @@ namespace JDM
                 command.Parameters.AddWithValue("nume", textBox5.Text);
                 command.Parameters.AddWithValue("categorie", comboBox1.Text);
 
-                SqlDataReader reader = command.ExecuteReader();
+                SqlDataReader reader2 = command.ExecuteReader();
 
                 
-                while (reader.Read())
+                while (reader2.Read())
                 {
-                    if (Convert.ToString(reader[0]).Equals(input))
+                    if (Convert.ToString(reader2[0]).Equals(input))
                     {
                         input_existent = true;
                         MessageBox.Show("Pagina cu nume deja existenta in categoria " + comboBox1.Text);
                     }
-                    else if (Convert.ToString(reader[0]).Length > 20)
+                    else if (Convert.ToString(reader2[0]).Length > 20)
                     {
                         input_existent = true;
                         MessageBox.Show("Numele este prea lung " + comboBox1.Text);
@@ -247,7 +251,7 @@ namespace JDM
                     }
 
                 }
-                reader.Close();
+                reader2.Close();
             }
             else
             {
@@ -261,9 +265,27 @@ namespace JDM
                 MessageBox.Show("Nr pagini max atins");
                 input_existent = true;
             }
+
+
+
             
-            
-            
+            if (edit_mode == true)
+                command = new SqlCommand("select subcategorie from copy id where nume =@nume", con);
+            else
+                command = new SqlCommand("select subcategorie from cate id where nume =@nume", con);
+
+            command.Parameters.AddWithValue("nume", textBox5.Text);
+            command.Parameters.AddWithValue("categorie", comboBox1.Text);
+
+            SqlDataReader reader = command.ExecuteReader();
+
+            int nr_categorii = 0;
+            while (reader.Read())
+            {
+
+                nr_categorii++;
+            }
+            reader.Close();
 
             if (input_existent == false)
             {
@@ -299,7 +321,7 @@ namespace JDM
                         else
                             command = new SqlCommand("insert into cate(id,categorie,subcategorie,nume) values(@a,@b,@c,@d)", con);
                     
-                        command.Parameters.AddWithValue("a", comboBox1.SelectedIndex);
+                        command.Parameters.AddWithValue("a", nr_categorii);
                         command.Parameters.AddWithValue("b", comboBox1.Text);
                         command.Parameters.AddWithValue("c", input);
                         command.Parameters.AddWithValue("d", textBox5.Text);
@@ -385,10 +407,10 @@ namespace JDM
             DialogResult dialog = MessageBox.Show(message, title, buttons);
             if (dialog == DialogResult.Yes)
             {
-                if(edit_mode == true)
+                if (edit_mode == true)
                 {
-                    string root = Application.StartupPath + @"\" + textBox5.Text; 
-                    string root2 = Application.StartupPath + @"\" + textBox5.Text +"_copy";
+                    string root = Application.StartupPath + @"\" + textBox5.Text;
+                    string root2 = Application.StartupPath + @"\" + textBox5.Text + "_copy";
                     if (Directory.Exists(root) && Directory.Exists(root2))
                     {
                         Directory.Delete(root, true);
@@ -396,17 +418,21 @@ namespace JDM
                         Microsoft.VisualBasic.FileIO.FileSystem.CopyDirectory(root2, root, UIOption.AllDialogs);
                         Directory.Delete(root2, true);
 
-                    }                    
+                    }
                     SqlConnection con = new SqlConnection(connection);
                     con.Open();
-                    SqlCommand command = new SqlCommand("delete from cate",con);
+                    SqlCommand command = new SqlCommand("delete from cate", con);
                     command.ExecuteNonQuery();
                     command = new SqlCommand("insert into cate select * from copy ", con);
                     command.ExecuteNonQuery();
-                    Application.ExitThread();
+                    if (inapoi == false)
+                        Application.ExitThread();
+                    else form.Show();
                 }
-                else
+                else if  (inapoi == false)
                     Application.ExitThread();
+                    else form.Show();
+
             }
             else if (dialog == DialogResult.No)
             {
@@ -416,10 +442,13 @@ namespace JDM
                     if (Directory.Exists(root))
                     {                        
                         Directory.Delete(root, true);
-                        Application.ExitThread();
+                        
 
                     }
-                    Application.ExitThread();
+                    if (inapoi == false)
+                        Application.ExitThread();
+                    else
+                        form.Show();
                 }
                 else
                 {
@@ -435,10 +464,13 @@ namespace JDM
                         command.Parameters.AddWithValue("nume", textBox5.Text);
                         command.ExecuteNonQuery();
                         Directory.Delete(root, true);
-                        Application.ExitThread();
+                        
 
                     }
-                    Application.ExitThread();
+                    if (inapoi == false)
+                        Application.ExitThread();
+                    else
+                        form.Show();
                 }
                     
 
@@ -459,10 +491,18 @@ namespace JDM
             this.Hide();
         }
 
-
+        bool inapoi = false;
         private void button5_Click_1(object sender, EventArgs e)
         {
-            Application.Exit();
+            inapoi = true;
+            
+            this.Close();
+            
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
 
         private void textBox5_TextChanged(object sender, EventArgs e)

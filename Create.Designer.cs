@@ -69,8 +69,9 @@ namespace JDM
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(268, 615);
+            this.panel1.Size = new System.Drawing.Size(268, 620);
             this.panel1.TabIndex = 0;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // richTextBox2
             // 
@@ -94,7 +95,7 @@ namespace JDM
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(118, 50);
             this.button5.TabIndex = 22;
-            this.button5.Text = "Exit";
+            this.button5.Text = "Meniu Principal";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click_1);
             // 
@@ -248,7 +249,7 @@ namespace JDM
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(268, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(760, 615);
+            this.panel2.Size = new System.Drawing.Size(759, 620);
             this.panel2.TabIndex = 1;
             // 
             // pictureBox1
@@ -257,7 +258,7 @@ namespace JDM
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(760, 303);
+            this.pictureBox1.Size = new System.Drawing.Size(759, 303);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
@@ -278,7 +279,7 @@ namespace JDM
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1028, 615);
+            this.ClientSize = new System.Drawing.Size(1027, 620);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;

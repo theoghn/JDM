@@ -46,7 +46,7 @@ namespace JDM
                 }
                 if(gasit == 0)
                 {
-                    Create create = new Create(input,false);
+                    Create create = new Create(input,false,this);
                     create.Show();
                     this.Hide();
                 }
@@ -59,7 +59,7 @@ namespace JDM
         {
             if (Convert.ToString(comboBox1.SelectedItem).Length > 0)
             {
-                View view = new View(Convert.ToString(comboBox1.SelectedItem));
+                View view = new View(Convert.ToString(comboBox1.SelectedItem),this);
                 view.Show();
                 this.Hide();
             }
@@ -70,7 +70,7 @@ namespace JDM
         {
             if (Convert.ToString(comboBox1.SelectedItem).Length > 0)
             {
-                Create create = new Create(Convert.ToString(comboBox1.SelectedItem), true);
+                Create create = new Create(Convert.ToString(comboBox1.SelectedItem), true,this);
                 create.Show();
                 this.Hide();
             }
@@ -81,19 +81,27 @@ namespace JDM
         {
             this.BackColor = ColorTranslator.FromHtml("#1C1C25");
             button1.BackColor = ColorTranslator.FromHtml("#6978F0");
+            button4.BackColor = ColorTranslator.FromHtml("#6978F0");
+
             button2.BackColor = ColorTranslator.FromHtml("#6978F0");
             button3.BackColor = ColorTranslator.FromHtml("#6978F0");
             comboBox1.BackColor = ColorTranslator.FromHtml("#202531");
-
+            update();
+            
+        }
+        private void update()
+        {
             SqlConnection con = new SqlConnection(connection);
             con.Open();
             SqlCommand command = new SqlCommand("select nume from cate", con);
             SqlDataReader reader = command.ExecuteReader();
-            string a="";
+            string a = "";
+            comboBox1.Items.Clear();
             while (reader.Read())
             {
-                if (Convert.ToString(reader[0]).Equals(a)==false)
+                if (Convert.ToString(reader[0]).Equals(a) == false)
                 {
+                    
                     a = Convert.ToString(reader[0]);
                     comboBox1.Items.Add(a);
                     comboBox1.SelectedItem = a;
@@ -105,6 +113,11 @@ namespace JDM
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            update();
         }
     }
 }

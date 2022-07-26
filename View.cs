@@ -15,8 +15,10 @@ namespace JDM
     public partial class View : Form
     {
         string titlu;
-        public View(string nume)
+        Form1 forms;
+        public View(string nume, Form1 form)
         {
+            forms = form;
             titlu = nume;
             InitializeComponent();
             richTextBox2.Text = nume;
@@ -323,7 +325,7 @@ namespace JDM
             pictureBox1.Image= bitmap;
             GC.Collect();
             edit = 1;
-            Create create = new Create(titlu, true);
+            Create create = new Create(titlu, true,forms);
             create.Show();
             this.Close();
         }
@@ -333,6 +335,18 @@ namespace JDM
             Quizz quizz = new Quizz(titlu,this);
             quizz.Show();
             this.Hide();
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            Bitmap bitmap = new Bitmap(1000, 800, System.Drawing.Imaging.PixelFormat.Format32bppPArgb); ;
+            pictureBox1.Image = bitmap;
+            GC.Collect();
+            edit = 1;
+            this.Close();
+            forms.Show();
+
+
         }
     }
 }
